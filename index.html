@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake-Gifts.Ru - Открытие кейсов</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff4d8d;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --gray-color: #6c757d;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #16213e 100%);
+            color: var(--light-color);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            color: var(--accent-color);
+        }
+
+        .balance-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            border: 2px solid var(--primary-color);
+        }
+
+        .balance-icon {
+            color: var(--warning-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Cases Section */
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent-color);
+        }
+
+        .cases-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .case-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .case-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        .case-icon {
+            font-size: 60px;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .case-info {
+            padding: 20px;
+        }
+
+        .case-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--light-color);
+        }
+
+        .case-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--warning-color);
+            margin-bottom: 15px;
+        }
+
+        .open-case-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .open-case-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* Inventory Section */
+        .inventory-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .inventory-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            transition: background 0.3s;
+            position: relative;
+        }
+
+        .inventory-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: var(--warning-color);
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .item-count {
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+
+        .item-rarity {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .rarity-common { background: #6c757d; color: white; }
+        .rarity-uncommon { background: #2ecc71; color: white; }
+        .rarity-rare { background: #3498db; color: white; }
+        .rarity-epic { background: #9b59b6; color: white; }
+        .rarity-legendary { background: #f39c12; color: white; }
+
+        .sell-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sell-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        /* Modal for case opening */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 50px rgba(106, 17, 203, 0.5);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--gray-color);
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            color: white;
+        }
+
+        /* Animation container */
+        .animation-container {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinning-prize {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .spinning-prize.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .spinning-prize.glowing {
+            animation: glow 1s infinite alternate;
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px currentColor; }
+            to { box-shadow: 0 0 40px currentColor, 0 0 60px currentColor; }
+        }
+
+        .prize-reveal {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .prize-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .prize-name {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .prize-price {
+            font-size: 22px;
+            color: var(--warning-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .prize-rarity {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-fast {
+            background: linear-gradient(to right, #ff4d8d, #ff8e53);
+            color: white;
+        }
+
+        /* Case opening animation */
+        .case-opening {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: caseOpen 1s ease-in-out;
+            z-index: 5;
+        }
+
+        @keyframes caseOpen {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .cases-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-gift logo-icon"></i>
+                <h1>Fake-Gifts.Ru</h1>
+            </div>
+            <div class="balance-container">
+                <i class="fas fa-coins balance-icon"></i>
+                <span id="balance">10000</span>₽
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Cases Section -->
+            <div class="cases-section">
+                <h2 class="section-title"><i class="fas fa-box-open"></i> Доступные кейсы</h2>
+                <div class="cases-container" id="cases-container">
+                    <!-- Cases will be loaded by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Inventory Section -->
+            <div class="inventory-section">
+                <h2 class="section-title"><i class="fas fa-archive"></i> Инвентарь</h2>
+                <div class="inventory-container" id="inventory-container">
+                    <!-- Inventory items will be loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for prize reveal -->
+    <div class="modal" id="prizeModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Открытие кейса</h2>
+            
+            <div class="animation-container" id="animationContainer">
+                <div class="case-opening" id="caseOpening"></div>
+                <div class="spinning-prize" id="spinningPrize"></div>
+            </div>
+            
+            <div class="prize-reveal" id="prizeReveal" style="display: none;">
+                <div class="prize-image" id="prizeImage"></div>
+                <h3 class="prize-name" id="prizeName">Название приза</h3>
+                <div class="prize-price" id="prizePrice">Цена: 0₽</div>
+                <div class="prize-rarity" id="prizeRarity">Редкость</div>
+                <p>Вы выиграли этот предмет!</p>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn btn-fast" id="openFast">Быстро открыть</button>
+                <button class="modal-btn btn-primary" id="openAgain">Открыть еще раз</button>
+                <button class="modal-btn btn-secondary" id="closeModalBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initial data
+        let balance = 10000;
+        let inventory = {};
+        let currentCase = null;
+        let isFastMode = false;
+        let animationTimeout = null;
+
+        // Prizes data with images and values
+        const prizes = [
+            { 
+                id: 1, 
+                name: "Jolly Chimp", 
+                available: 132155, 
+                rarity: "rare", 
+                value: 1200,
+                image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 2, 
+                name: "Input Key", 
+                available: 159750, 
+                rarity: "uncommon", 
+                value: 350,
+                image: "https://images.unsplash.com/photo-1585620385456-4749f69cce7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 3, 
+                name: "Desk Calendar", 
+                available: 374077, 
+                rarity: "common", 
+                value: 100,
+                image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 4, 
+                name: "Swiss Watch", 
+                available: 29323, 
+                rarity: "epic", 
+                value: 2500,
+                image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 5, 
+                name: "Sleigh Bell", 
+                available: 28000, 
+                rarity: "epic", 
+                value: 2200,
+                image: "https://images.unsplash.com/photo-1570915864606-2f18f29e74ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 6, 
+                name: "Toy Bear", 
+                available: 57724, 
+                rarity: "rare", 
+                value: 800,
+                image: "https://images.unsplash.com/photo-1561380241-41f53d3386e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 7, 
+                name: "Sky Stilettos", 
+                available: 58640, 
+                rarity: "rare", 
+                value: 1500,
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 8, 
+                name: "Fresh Socks", 
+                available: 200509, 
+                rarity: "common", 
+                value: 50,
+                image: "https://images.unsplash.com/photo-1586351934193-430b2e0a68d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 9, 
+                name: "Clover Pin", 
+                available: 270970, 
+                rarity: "common", 
+                value: 80,
+                image: "https://images.unsplash.com/photo-1573408301185-87fd05a13c73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 10, 
+                name: "Instant Ramen", 
+                available: 457382, 
+                rarity: "common", 
+                value: 60,
+                image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 11, 
+                name: "Mousse Cake", 
+                available: 230505, 
+                rarity: "uncommon", 
+                value: 300,
+                image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 12, 
+                name: "Spring Basket", 
+                available: 231311, 
+                rarity: "uncommon", 
+                value: 400,
+                image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // Cases data with images
+        const cases = [
+            { 
+                id: 1, 
+                name: "Базовый кейс", 
+                price: 50, 
+                icon: "fas fa-box", 
+                color: "#6c757d",
+                image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 2, 
+                name: "Улучшенный кейс", 
+                price: 250, 
+                icon: "fas fa-box-open", 
+                color: "#2ecc71",
+                image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 3, 
+                name: "Премиум кейс", 
+                price: 1000, 
+                icon: "fas fa-gem", 
+                color: "#3498db",
+                image: "https://images.unsplash.com/photo-1531251445707-1f000e1e87d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 4, 
+                name: "Элитный кейс", 
+                price: 2500, 
+                icon: "fas fa-crown", 
+                color: "#9b59b6",
+                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            },
+            { 
+                id: 5, 
+                name: "Легендарный кейс", 
+                price: 5000, 
+                icon: "fas fa-fire", 
+                color: "#f39c12",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // Редкость и шансы для каждого кейса (чем дороже кейс, тем выше шанс на лучший дроп)
+        const caseRarityWeights = {
+            1: { common: 75, uncommon: 20, rare: 5, epic: 0, legendary: 0 }, // Базовый
+            2: { common: 50, uncommon: 30, rare: 15, epic: 5, legendary: 0 }, // Улучшенный
+            3: { common: 30, uncommon: 35, rare: 20, epic: 10, legendary: 5 }, // Премиум
+            4: { common: 15, uncommon: 25, rare: 30, epic: 20, legendary: 10 }, // Элитный
+            5: { common: 5, uncommon: 15, rare: 30, epic: 30, legendary: 20 }  // Легендарный
+        };
+
+        // DOM elements
+        const balanceElement = document.getElementById('balance');
+        const casesContainer = document.getElementById('cases-container');
+        const inventoryContainer = document.getElementById('inventory-container');
+        const prizeModal = document.getElementById('prizeModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const closeModalBtn2 = document.getElementById('closeModalBtn');
+        const openAgainBtn = document.getElementById('openAgain');
+        const openFastBtn = document.getElementById('openFast');
+        const prizeNameElement = document.getElementById('prizeName');
+        const prizeImageElement = document.getElementById('prizeImage');
+        const prizeRarityElement = document.getElementById('prizeRarity');
+        const prizePriceElement = document.getElementById('prizePrice');
+        const prizeReveal = document.getElementById('prizeReveal');
+        const animationContainer = document.getElementById('animationContainer');
+        const spinningPrize = document.getElementById('spinningPrize');
+        const caseOpening = document.getElementById('caseOpening');
+        const modalTitle = document.getElementById('modalTitle');
+
+        // Initialize the app
+        function init() {
+            loadInventory();
+            renderCases();
+            renderInventory();
+            
+            // Event listeners for modal
+            closeModalBtn.addEventListener('click', closeModal);
+            closeModalBtn2.addEventListener('click', closeModal);
+            openAgainBtn.addEventListener('click', openCaseAgain);
+            openFastBtn.addEventListener('click', toggleFastMode);
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === prizeModal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Load inventory from localStorage
+        function loadInventory() {
+            const savedInventory = localStorage.getItem('fakeGiftsInventory');
+            if (savedInventory) {
+                inventory = JSON.parse(savedInventory);
+            } else {
+                // Initialize empty inventory
+                prizes.forEach(prize => {
+                    inventory[prize.id] = 0;
+                });
+                saveInventory();
+            }
+            
+            // Load balance
+            const savedBalance = localStorage.getItem('fakeGiftsBalance');
+            if (savedBalance) {
+                balance = parseInt(savedBalance);
+                balanceElement.textContent = balance.toLocaleString('ru-RU');
+            }
+        }
+
+        // Save inventory to localStorage
+        function saveInventory() {
+            localStorage.setItem('fakeGiftsInventory', JSON.stringify(inventory));
+            localStorage.setItem('fakeGiftsBalance', balance.toString());
+        }
+
+        // Render cases
+        function renderCases() {
+            casesContainer.innerHTML = '';
+            
+            cases.forEach(caseItem => {
+                const caseElement = document.createElement('div');
+                caseElement.className = 'case-card';
+                caseElement.innerHTML = `
+                    <div class="case-image" style="background-image: url('${caseItem.image}');">
+                        <i class="${caseItem.icon} case-icon"></i>
+                    </div>
+                    <div class="case-info">
+                        <div class="case-name">${caseItem.name}</div>
+                        <div class="case-price">${caseItem.price}₽</div>
+                        <button class="open-case-btn" data-case-id="${caseItem.id}">
+                            <i class="fas fa-box-open"></i> Открыть за ${caseItem.price}₽
+                        </button>
+                    </div>
+                `;
+                
+                casesContainer.appendChild(caseElement);
+                
+                // Add event listener to the button
+                const openBtn = caseElement.querySelector('.open-case-btn');
+                openBtn.addEventListener('click', () => openCase(caseItem));
+            });
+        }
+
+        // Render inventory
+        function renderInventory() {
+            inventoryContainer.innerHTML = '';
+            
+            // Filter items that are in inventory
+            const ownedItems = prizes.filter(prize => inventory[prize.id] > 0);
+            
+            if (ownedItems.length === 0) {
+                inventoryContainer.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 20px;">Инвентарь пуст. Откройте кейсы, чтобы получить предметы!</p>';
+                return;
+            }
+            
+            // Sort by count (descending)
+            ownedItems.sort((a, b) => inventory[b.id] - inventory[a.id]);
+            
+            ownedItems.forEach(prize => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'inventory-item';
+                itemElement.innerHTML = `
+                    <div class="item-image" style="background-image: url('${prize.image}');"></div>
+                    <div class="item-info">
+                        <div class="item-name">${prize.name}</div>
+                        <div class="item-price">Цена: ${prize.value}₽</div>
+                        <div class="item-count">В инвентаре: ${inventory[prize.id]} шт.</div>
+                    </div>
+                    <div class="item-rarity rarity-${prize.rarity}">${getRarityName(prize.rarity)}</div>
+                    <button class="sell-btn" data-prize-id="${prize.id}">Продать</button>
+                `;
+                
+                inventoryContainer.appendChild(itemElement);
+                
+                // Add event listener to sell button
+                const sellBtn = itemElement.querySelector('.sell-btn');
+                sellBtn.addEventListener('click', () => sellPrize(prize));
+            });
+        }
+
+        // Open a case
+        function openCase(caseItem) {
+            if (balance < caseItem.price) {
+                alert('Недостаточно средств!');
+                return;
+            }
+            
+            // Set current case
+            currentCase = caseItem;
+            
+            // Reset fast mode
+            isFastMode = false;
+            openFastBtn.textContent = "Быстро открыть";
+            
+            // Show modal with animation
+            showOpeningAnimation(caseItem);
+        }
+
+        // Show opening animation
+        function showOpeningAnimation(caseItem) {
+            // Reset modal
+            prizeReveal.style.display = 'none';
+            modalTitle.textContent = `Открытие: ${caseItem.name}`;
+            spinningPrize.style.opacity = '0';
+            spinningPrize.className = 'spinning-prize';
+            
+            // Show case image
+            caseOpening.style.backgroundImage = `url('${caseItem.image}')`;
+            caseOpening.style.display = 'block';
+            
+            // Show modal
+            prizeModal.style.display = 'flex';
+            
+            // Start animation
+            setTimeout(() => {
+                // Hide case
+                caseOpening.style.display = 'none';
+                
+                // Start spinning animation
+                startSpinningAnimation(caseItem);
+            }, 1000);
+        }
+
+        // Start spinning animation
+        function startSpinningAnimation(caseItem) {
+            // Show spinning prize
+            spinningPrize.style.display = 'block';
+            
+            // Get random prizes for spinning effect
+            const spinPrizes = getSpinPrizes(caseItem.id);
+            let currentSpin = 0;
+            const totalSpins = isFastMode ? 5 : 10;
+            const spinDelay = isFastMode ? 100 : 200;
+            
+            function spinNextPrize() {
+                if (currentSpin < totalSpins) {
+                    const prizeIndex = currentSpin % spinPrizes.length;
+                    const prize = spinPrizes[prizeIndex];
+                    
+                    spinningPrize.style.backgroundImage = `url('${prize.image}')`;
+                    spinningPrize.style.borderColor = getRarityColor(prize.rarity);
+                    spinningPrize.style.opacity = '1';
+                    
+                    currentSpin++;
+                    
+                    if (currentSpin < totalSpins) {
+                        animationTimeout = setTimeout(spinNextPrize, spinDelay);
+                    } else {
+                        // Final prize
+                        const finalPrize = getRandomPrize(caseItem.id);
+                        showFinalPrize(caseItem, finalPrize);
+                    }
+                }
+            }
+            
+            // Start spinning
+            spinNextPrize();
+        }
+
+        // Get random prizes for spinning effect
+        function getSpinPrizes(caseId) {
+            const weights = caseRarityWeights[caseId];
+            const availablePrizes = prizes.filter(prize => weights[prize.rarity] > 0);
+            
+            // Get 5 random prizes for spinning effect
+            const spinPrizes = [];
+            for (let i = 0; i < 5; i++) {
+                const randomIndex = Math.floor(Math.random() * availablePrizes.length);
+                spinPrizes.push(availablePrizes[randomIndex]);
+            }
+            
+            return spinPrizes;
+        }
+
+        // Get random prize based on case rarity weights
+        function getRandomPrize(caseId) {
+            const weights = caseRarityWeights[caseId];
+            
+            // Create array of prizes filtered by available rarities for this case
+            const availablePrizes = prizes.filter(prize => weights[prize.rarity] > 0);
+            
+            // Create weighted array
+            let weightedPrizes = [];
+            availablePrizes.forEach(prize => {
+                const weight = weights[prize.rarity];
+                for (let i = 0; i < weight; i++) {
+                    weightedPrizes.push(prize);
+                }
+            });
+            
+            // Select random prize
+            const randomIndex = Math.floor(Math.random() * weightedPrizes.length);
+            return weightedPrizes[randomIndex];
+        }
+
+        // Show final prize
+        function showFinalPrize(caseItem, prize) {
+            // Deduct balance
+            balance -= caseItem.price;
+            balanceElement.textContent = balance.toLocaleString('ru-RU');
+            
+            // Add to inventory
+            inventory[prize.id]++;
+            
+            // Save state
+            saveInventory();
+            
+            // Update spinning prize to final prize
+            spinningPrize.style.backgroundImage = `url('${prize.image}')`;
+            spinningPrize.style.borderColor = getRarityColor(prize.rarity);
+            spinningPrize.classList.add('active');
+            spinningPrize.classList.add('glowing');
+            spinningPrize.style.color = getRarityColor(prize.rarity);
+            
+            // Show prize details after delay
+            setTimeout(() => {
+                prizeReveal.style.display = 'block';
+                prizeNameElement.textContent = prize.name;
+                prizePriceElement.textContent = `Цена: ${prize.value}₽`;
+                prizeRarityElement.textContent = getRarityName(prize.rarity);
+                prizeRarityElement.className = `prize-rarity rarity-${prize.rarity}`;
+                prizeImageElement.style.backgroundImage = `url('${prize.image}')`;
+                
+                // Update inventory display
+                renderInventory();
+            }, 500);
+        }
+
+        // Toggle fast mode
+        function toggleFastMode() {
+            isFastMode = !isFastMode;
+            openFastBtn.textContent = isFastMode ? "Обычное открытие" : "Быстро открыть";
+            
+            // If animation is running, restart it
+            if (currentCase && prizeModal.style.display === 'flex') {
+                clearTimeout(animationTimeout);
+                startSpinningAnimation(currentCase);
+            }
+        }
+
+        // Open case again
+        function openCaseAgain() {
+            if (!currentCase) return;
+            
+            if (balance < currentCase.price) {
+                alert('Недостаточно средств!');
+                closeModal();
+                return;
+            }
+            
+            showOpeningAnimation(currentCase);
+        }
+
+        // Sell prize
+        function sellPrize(prize) {
+            if (inventory[prize.id] <= 0) return;
+            
+            // Remove from inventory
+            inventory[prize.id]--;
+            
+            // Add value to balance
+            balance += prize.value;
+            balanceElement.textContent = balance.toLocaleString('ru-RU');
+            
+            // Save state
+            saveInventory();
+            
+            // Show notification
+            showNotification(`Вы продали "${prize.name}" за ${prize.value}₽`);
+            
+            // Update inventory display
+            renderInventory();
+        }
+
+        // Close modal
+        function closeModal() {
+            prizeModal.style.display = 'none';
+            clearTimeout(animationTimeout);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.background = 'linear-gradient(to right, var(--primary-color), var(--secondary-color))';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 25px';
+            notification.style.borderRadius = '10px';
+            notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            notification.style.zIndex = '1000';
+            notification.style.fontWeight = '600';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Helper functions
+        function getRarityName(rarity) {
+            const names = {
+                common: 'Обычный',
+                uncommon: 'Необычный',
+                rare: 'Редкий',
+                epic: 'Эпический',
+                legendary: 'Легендарный'
+            };
+            return names[rarity] || rarity;
+        }
+
+        function getRarityColor(rarity) {
+            const colors = {
+                common: '#6c757d',
+                uncommon: '#2ecc71',
+                rare: '#3498db',
+                epic: '#9b59b6',
+                legendary: '#f39c12'
+            };
+            return colors[rarity] || '#6c757d';
+        }
+
+        // Reset data (for testing)
+        function resetData() {
+            if (confirm('Вы уверены, что хотите сбросить все данные? Баланс и инвентарь будут восстановлены к начальным значениям.')) {
+                balance = 10000;
+                balanceElement.textContent = balance.toLocaleString('ru-RU');
+                
+                prizes.forEach(prize => {
+                    inventory[prize.id] = 0;
+                });
+                
+                saveInventory();
+                renderInventory();
+                showNotification('Данные сброшены! Баланс восстановлен до 10,000₽.');
+            }
+        }
+
+        // Add reset button to header (for testing)
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            
+            // Add reset button to header
+            const headerContent = document.querySelector('.header-content');
+            const resetBtn = document.createElement('button');
+            resetBtn.innerHTML = '<i class="fas fa-redo"></i> Сбросить';
+            resetBtn.style.background = 'rgba(231, 76, 60, 0.2)';
+            resetBtn.style.color = '#e74c3c';
+            resetBtn.style.border = '1px solid #e74c3c';
+            resetBtn.style.borderRadius = '20px';
+            resetBtn.style.padding = '10px 20px';
+            resetBtn.style.cursor = 'pointer';
+            resetBtn.style.fontWeight = '600';
+            resetBtn.style.marginLeft = '15px';
+            resetBtn.addEventListener('click', resetData);
+            
+            const balanceContainer = document.querySelector('.balance-container');
+            balanceContainer.appendChild(resetBtn);
+        });
+
+        // Instructions for running locally
+        console.log("Сайт Fake-Gifts.Ru запущен!");
+        console.log("Функции:");
+        console.log("1. Открытие кейсов с анимацией");
+        console.log("2. Быстрый режим открытия (кнопка 'Быстро открыть')");
+        console.log("3. Продажа предметов из инвентаря");
+        console.log("4. Чем дороже кейс, тем выше шанс на редкий дроп");
+        console.log("5. Все данные сохраняются в localStorage");
+    </script>
+</body>
+</html>
